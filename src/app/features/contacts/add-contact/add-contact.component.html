@@ -1,0 +1,95 @@
+<a [routerLink]="['/home']" class="btn btn-dark">Back</a>
+
+<form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="firstName">First Name
+        <span class="text-danger">*</span>
+      </label>
+      <input id="firstName" formControlName="firstName" />
+      <div *ngIf="getControl('firstName').touched && getControl('firstName').invalid">
+        <span *ngIf="getControl('firstName').errors?.['required']">First Name is required.</span>
+        <span *ngIf="getControl('firstName').errors?.['minlength']">Minimum 2 characters required.</span>
+        <span *ngIf="getControl('firstName').errors?.['alphabetic'] && !getControl('firstName').errors?.['minlength']">The name must contain only alphabetic characters.</span>
+      </div>
+    </div>
+  
+    <div>
+      <label for="lastName">Last Name <span class="text-danger">*</span></label>
+      <input id="lastName" formControlName="lastName" />
+      <div *ngIf="getControl('lastName').touched && getControl('lastName').invalid">
+        <span *ngIf="getControl('lastName').errors?.['required']">Last Name is required.</span>
+        <span *ngIf="getControl('lastName').errors?.['alphabetic']">The name must contain only alphabetic characters.</span>
+
+      </div>
+    </div>
+    <div>
+      <label for="email">Email <span class="text-danger">*</span></label>
+      <input id="email" formControlName="email" />
+      <div *ngIf="getControl('email').touched && getControl('email').invalid">
+        <span *ngIf="getControl('email').errors?.['required']">Email is required.</span>
+        <span *ngIf="getControl('email').errors?.['emailInvalid']">Invalid email format.</span>
+      </div>
+    </div>
+  
+    <div>
+      <label for="phoneNumber">Phone Number <span class="text-danger">*</span></label>
+      <input id="phoneNumber" formControlName="phoneNumber"/>
+      <div *ngIf="getControl('phoneNumber').touched && getControl('phoneNumber').invalid">
+        <span *ngIf="getControl('phoneNumber').errors?.['required']">Phone Number is required.</span>
+        <span *ngIf="getControl('phoneNumber').errors?.['pattern']"> Phone number must be between 10 and 15 digits.</span>
+      </div>
+    </div>
+  
+    <div>
+      <label for="address">Address <span class="text-danger">*</span></label>
+      <textarea id="address" formControlName="address" ></textarea>
+      <div *ngIf="getControl('address').touched && getControl('address').invalid">
+        <span *ngIf="getControl('address').errors?.['required']">Address is required.</span>
+        <span *ngIf="getControl('address').errors?.['addressInvalid']">Address should only contain letters, numbers, commas, slashes, and spaces.</span>
+        <span *ngIf="getControl('address').errors?.['maxlength']">Maximum 100 only characters allowed.</span>
+      </div>
+    </div>
+    <div>
+        <label for="country">Country <span class="text-danger">*</span></label>
+        <select id="country" formControlName="country" (change)="fetchStates($event)">
+          <option value="">Select a Country</option>
+          <option *ngFor="let country of countries" [value]="country.isoCode">{{ country.name }}</option>
+        </select>
+        <div *ngIf="getControl('country').touched && getControl('country').invalid">
+          <span *ngIf="getControl('country').errors?.['required']">Country is required.</span>
+        </div>
+    </div>
+    
+     <div>
+        <label for="state">State <span class="text-danger">*</span></label>
+        <select id="state" formControlName="state" (change)="fetchCities($event)">
+          <option value="">Select a State</option>
+          <option *ngFor="let state of states" [value]="state.isoCode">{{ state.name }}</option>
+        </select>
+        <div *ngIf="getControl('state').touched && getControl('state').invalid">
+          <span *ngIf="getControl('state').errors?.['required']">State is required.</span>
+        </div>
+      </div>
+    
+      <div>
+        <label for="city">City <span class="text-danger">*</span></label>
+        <select id="city" formControlName="city">
+          <option value="">Select a City</option>
+          <option *ngFor="let city of cities" [value]="city.name">{{ city.name }}</option>
+        </select>
+        <div *ngIf="getControl('city').touched && getControl('city').invalid">
+          <span *ngIf="getControl('city').errors?.['required']">City is required.</span>
+        </div>
+      </div> 
+    <div>
+      <label for="postalCode">Postal Code <span class="text-danger">*</span></label>
+      <input id="postalCode" formControlName="postalCode" />
+      <div *ngIf="getControl('postalCode').touched && getControl('postalCode').invalid">
+        <span *ngIf="getControl('postalCode').errors?.['required']">Postal Code is required.</span>
+        <span *ngIf="getControl('postalCode').errors?.['postalCodeInvalid']">Invalid Postal Code.</span>
+      </div>
+    </div>
+  
+    <button type="submit" [disabled]="contactForm.invalid">Submit</button>
+  </form>
+  

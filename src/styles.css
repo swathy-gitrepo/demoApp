@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+.thead-dark {
+    background-color: #343a40;
+    color: #fff;
+  }
+
+  .text-danger {
+    color: red;
+  }
+  .backbutton{
+    margin-left: 20px;
+    margin-top: 10px;
+    width: 50px;
+    
+  }
