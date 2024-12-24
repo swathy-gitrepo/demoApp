@@ -35,15 +35,16 @@ export class ContactListComponent implements OnInit{
     {
       this.contactService.deleteContact(contactId).subscribe(
         {
-          next : (response : HttpResponseMessage)=>
+          next : (response : any)=>
           {
             alert(response.reasonPhrase);
            this.cdRef.detectChanges(); 
             this.contactList$ = this.contactService.getAllContacts();
           },
-          error : (error : HttpResponseMessage)=>
+          error : (error)=>
           {
-            alert(error.reasonPhrase);
+            var errorObj = error.error;
+            alert(errorObj.reasonPhrase);
           }
         }
       )

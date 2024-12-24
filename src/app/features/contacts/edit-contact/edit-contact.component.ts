@@ -55,7 +55,9 @@ export class EditContactComponent implements OnInit{
       },
       error : (error)=>
       {
-        console.log(error);
+        var errorObj = error.error;
+        console.log(errorObj.reasonPhrase);
+        alert(errorObj.reasonPhrase);
       }
     }
    );
@@ -98,9 +100,10 @@ export class EditContactComponent implements OnInit{
               alert(response.reasonPhrase);
               this.router.navigateByUrl('/home');
             },
-            error : (error : HttpResponseMessage) =>
+            error : (error) =>
             {
-              alert(error.reasonPhrase);
+              var errorObj = error;
+              alert(errorObj.reasonPhrase);
               console.log(error);
             }
           }

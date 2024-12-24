@@ -66,15 +66,17 @@ countrycode : string = '';
     if (this.contactForm.valid) {
       this.contactService.addContact(this.contactForm.value).subscribe(
         {
-          next : (response)=>
+          next : (response: any)=>
           {
-            alert("Contact Added Successfully");
-            this.router.navigateByUrl('/home');
+            alert(response.reasonPhrase);
+              this.router.navigateByUrl('/home');
           },
           error : (error) =>
           {
-            console.log(error);
-            alert("Failed to add contact. Please try again.");
+            var errorObj = error.error;
+            console.log('Error:', errorObj.reasonPhrase);
+            alert(errorObj.reasonPhrase);
+            this.contactForm.reset();
           }
         }
       );
